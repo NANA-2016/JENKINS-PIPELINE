@@ -47,12 +47,14 @@ MAKE FILE EXCECUTABLE
 ![image](https://github.com/user-attachments/assets/28e016f8-ea3d-443e-8e8c-6a9f81ba6ef6)
 
 
- HTML.FILE
-![image](https://github.com/user-attachments/assets/4559e9bc-d15d-47db-b8a6-1c4186181085)
-
-DOCKER FILE
+CREATE DOCKER FILE TO ALLOW CREATION OF A DOCKER IMAGE
 
 ![image](https://github.com/user-attachments/assets/79da0f70-23fe-4193-9b17-4e9e6cc1c008)
 
+ADD INDEX HTML.FILE TO TRIGGER JENKINS TO RUN NEW BUILD
+ 
+![image](https://github.com/user-attachments/assets/4559e9bc-d15d-47db-b8a6-1c4186181085)
+
 PIPELINE JOB SUCCESSFULLY COMPLETED
+
 ![image](https://github.com/user-attachments/assets/53859d59-2211-4294-891f-e61f2bcc920d)
