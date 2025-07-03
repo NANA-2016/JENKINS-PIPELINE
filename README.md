@@ -81,6 +81,7 @@ CREATE DOCKER FILE TO ALLOW CREATION OF A DOCKER IMAGE
 ![image](https://github.com/user-attachments/assets/4559e9bc-d15d-47db-b8a6-1c4186181085)
 
 ### CREATE JENKINSFILE AND CONFUGURE IT TO RUN DOCKER CONTAINERS USING THE BUILD DOCKER IMAGE .
+
 #### USE THE SCRIPT BELOW
 
 pipeline {
@@ -160,6 +161,19 @@ pipeline {
  
 ![image](https://github.com/user-attachments/assets/4559e9bc-d15d-47db-b8a6-1c4186181085)
 
+## CONFIGURE THE ACCESSPORT TO 8082 ON YOUR INSTANCE
+
+![ASCCESSPORTFOR INDEXHTML](https://github.com/user-attachments/assets/1ea1a50a-3c15-4460-8653-890c1de803fc)
+
 ## PIPELINE JOB SUCCESSFULLY COMPLETED
 
 ![image](https://github.com/user-attachments/assets/53859d59-2211-4294-891f-e61f2bcc920d)
+
+### YOU CAN NOW ACCESSTHE Index.htmlfile through the browser .
+
+using 
+
+http://<your-ec2-public-ip>:8082
+
+![Screenshot 2025-07-03 180237](https://github.com/user-attachments/assets/0b9e14a8-d045-409e-8daf-0efb450a83ab)
+
