@@ -1,6 +1,32 @@
 # JENKINS-PIPELINE
 
-##CREATING A PIPELINE JOB
+Install Jenkins and let it run access it from port 8080. Got to the browser and access Jenkins "http://<Public ip address>8080
+
+![jenkins page and file ](https://github.com/user-attachments/assets/483fc12a-d718-401e-b4ec-1e6098cca21c)
+
+## JENKINS SECURITY
+
+Create an admin user so that not every one accesses Jenkins .
+
+ssh -i "Nana.pem" ubuntu@ec2-16-171-159-226.eu-north-1.compute.amazonaws.com
+
+
+## Install the required plugins .ie Docker and GIT plugins
+
+![Screenshot 2025-06-18 114106](https://github.com/user-attachments/assets/bb49e333-8035-497a-9ab0-c363ca6a0c73)
+
+
+
+## AUTOMATIC TRIGGERS FROM GIT-HUB
+
+Create a free style job to test then add a web hook to the Jenkins repository to connect Jenkins with Git-hub sot at Jenkins can run triggers from you terminal through git hub
+
+
+
+
+
+
+## CREATING A PIPELINE JOB
 
 ![Screenshot 2025-06-12 175429](https://github.com/user-attachments/assets/7c70016e-856e-4fe2-9529-e4b59e5e0b56)
 
