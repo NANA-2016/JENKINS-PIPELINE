@@ -21,10 +21,9 @@ ssh -i "Nana.pem" ubuntu@ec2-16-171-159-226.eu-north-1.compute.amazonaws.com
 
 Create a free style job to test then add a web hook to the Jenkins repository to connect Jenkins with Git-hub sot at Jenkins can run triggers from you terminal through git hub
 
+go to your repository-setting-webhook-add webhook
 
-
-
-
+![connect to webhook](https://github.com/user-attachments/assets/e653784b-775e-4aa5-aaa8-6401a4c959eb)
 
 ## CREATING A PIPELINE JOB
 
@@ -34,7 +33,7 @@ CONFIGURATION OF JENKINS PIPELINE
 
 ![Screenshot 2025-06-12 175639](https://github.com/user-attachments/assets/e171e725-83fb-430c-9249-de8e3c971698)
 
-WRITING JENKINS PIPELINE SCRIPT
+## WRITING JENKINS PIPELINE SCRIPT
 
 ![Screenshot 2025-06-12 181504](https://github.com/user-attachments/assets/f8e6ac96-a98e-4281-b80f-61cc8b9c3ed2)
 
@@ -77,10 +76,90 @@ CREATE DOCKER FILE TO ALLOW CREATION OF A DOCKER IMAGE
 
 ![image](https://github.com/user-attachments/assets/79da0f70-23fe-4193-9b17-4e9e6cc1c008)
 
-ADD INDEX HTML.FILE TO TRIGGER JENKINS TO RUN NEW BUILD
+## ADD INDEX HTML.FILE TO TRIGGER JENKINS TO RUN NEW BUILD
  
 ![image](https://github.com/user-attachments/assets/4559e9bc-d15d-47db-b8a6-1c4186181085)
 
-PIPELINE JOB SUCCESSFULLY COMPLETED
+### CREATE JENKINSFILE AND CONFUGURE IT TO RUN DOCKER CONTAINERS USING THE BUILD DOCKER IMAGE .
+#### USE THE SCRIPT BELOW
+
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'jenkins-html-project'
+        CONTAINER_NAME = 'jenkins-html-container'
+        HOST_PORT = '8082'
+        REPO_URL = 'https://github.com/NANA-2016/JENKINS-CICD-PIPELINE--PROJECT-3.git'
+        BRANCH = 'main'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Simpler declarative checkout
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${BRANCH}"]],
+                    userRemoteConfigs: [[url: "${REPO_URL}"]]
+                ])
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${IMAGE_NAME} ."
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                // Stop and remove container if it exists
+                sh "docker stop ${CONTAINER_NAME} || true"
+                sh "docker rm ${CONTAINER_NAME} || true"
+                // Run new container
+                sh "docker run -d -p ${HOST_PORT}:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+            }
+        }
+
+        stage('Verify Container is Running') {
+            steps {
+                // Wait a few seconds for container to start
+                sh "sleep 5"
+                // Check container health via curl
+                sh "curl -f http://localhost:${HOST_PORT} || (echo 'Health check failed' && exit 1)"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed.'
+        }
+        // Uncomment this block later when you want automatic cleanup
+        /*
+        always {
+            echo 'Cleaning up...'
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                sh "docker stop ${CONTAINER_NAME} || true"
+                sh "docker rm ${CONTAINER_NAME} || true"
+                sh "docker rmi ${IMAGE_NAME} || true"
+            }
+        }
+        */
+    }
+}
+
+
+
+
+## ADD INDEX HTML.FILE TO TRIGGER JENKINS TO RUN NEW BUILD
+ 
+![image](https://github.com/user-attachments/assets/4559e9bc-d15d-47db-b8a6-1c4186181085)
+
+## PIPELINE JOB SUCCESSFULLY COMPLETED
 
 ![image](https://github.com/user-attachments/assets/53859d59-2211-4294-891f-e61f2bcc920d)
